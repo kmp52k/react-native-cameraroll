@@ -21,6 +21,7 @@ const GROUP_TYPES_OPTIONS = {
   Library: 'Library',
   PhotoStream: 'PhotoStream',
   SavedPhotos: 'SavedPhotos',
+  Favourites: 'Favourites',
 };
 
 const ASSET_TYPE_OPTIONS = {
@@ -89,6 +90,7 @@ export type PhotoIdentifier = {
       heading?: number,
       speed?: number,
     },
+    isFavourite?: boolean,
   },
 };
 

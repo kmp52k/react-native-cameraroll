@@ -15,7 +15,8 @@ declare namespace CameraRoll {
     | 'Faces'
     | 'Library'
     | 'PhotoStream'
-    | 'SavedPhotos';
+    | 'SavedPhotos'
+    | 'Favourites';
 
   type AssetType = 'All' | 'Videos' | 'Photos';
 
@@ -48,6 +49,7 @@ declare namespace CameraRoll {
         heading?: number,
         speed?: number,
       },
+      isFavourite?: boolean,
     };
   }
 

@@ -35,6 +35,7 @@ RCT_ENUM_CONVERTER(PHAssetCollectionSubtype, (@{
    @"photostream": @(PHAssetCollectionSubtypeAlbumMyPhotoStream),
    @"saved-photos": @(PHAssetCollectionSubtypeAny), // incorrect, but legacy correspondence in PHAssetCollectionSubtype
    @"savedphotos": @(PHAssetCollectionSubtypeAny), // This was ALAssetsGroupSavedPhotos, seems to have no direct correspondence in PHAssetCollectionSubtype
+   @"favourites": @(PHAssetCollectionSubtypeSmartAlbumFavorites),
 }), PHAssetCollectionSubtypeAny, integerValue)
 
 
@@ -229,7 +230,7 @@ RCT_EXPORT_METHOD(getPhotos:(NSDictionary *)params
   
   // If groupTypes is "all", we want to fetch the SmartAlbum "all photos". Otherwise, all
   // other groupTypes values require the "album" collection type.
-  PHAssetCollectionType const collectionType = ([groupTypes isEqualToString:@"all"]
+  PHAssetCollectionType const collectionType = (([groupTypes isEqualToString:@"all"] | [groupTypes isEqualToString: @"favourites"])
                                                 ? PHAssetCollectionTypeSmartAlbum
                                                 : PHAssetCollectionTypeAlbum);
   PHAssetCollectionSubtype const collectionSubtype = [RCTConvert PHAssetCollectionSubtype:groupTypes];
@@ -334,7 +335,8 @@ RCT_EXPORT_METHOD(getPhotos:(NSDictionary *)params
               @"altitude": @(loc.altitude),
               @"heading": @(loc.course),
               @"speed": @(loc.speed), // speed in m/s
-            } : @{})
+            } : @{}),
+          @"isFavourite": @(asset.favorite)
           }
       }];
     };
